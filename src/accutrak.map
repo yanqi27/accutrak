@@ -1,0 +1,10 @@
+
+{
+	global:
+		AT_StartAccuTrak;
+		AT_StopAccuTrak;
+		AT_PatchMemRoutines;
+
+	local:
+		*;
+};

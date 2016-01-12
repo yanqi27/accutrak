@@ -1,0 +1,170 @@
+
+How to use
+
+1 The tool is compiled into a shared library.
+
+2 It should be LD_PRELOAD into debugged program if preload is suppported. 
+
+3 If preloading is not available, provide api to enable the tool's feature. Application has to link to the tool or dlopen into core, but is not required to call the api. The tool shall then read in the configuration file and decide what to do.
+
+4 Conifguration file is set by an env var: CONFIG_FILE=/home/myan/bf.ini
+
+5 Support private heap(memory pool) on module level which in turn depends on the underneath memory manager.
+
+Features
+
+1 Check memory leaks, illegal memory read/write like MALLOC_CHECK_.
+
+2 Support hardware memory protection like Electric Fence.
+
+3 Be able to hook specified DSO(s) only and let default malloc handles requests from other DSOs.
+
+4 Precise memory block tracking, like PCE's bug finder.
+
+5 Use a configuration file to let customer fine tuned the debugging behavior.
+
+6 Be able to debug dlopened DSOs as well. (need to hookup dlopen).
+
+
+
+Note:
+
+If we can assume malloc/free are self-contained in the debugged group of modules, in other words, memory allocated by a module in the group must be freed by anyone of them, and the module in the group only free memory block allocated by the group member. If this is true, it is much easier to patch and unpatch the module on the fly.
+
+
+#####################################################################
+###  Environment Variables                                        ###
+#####################################################################
+AT_CONFIG_FILE => path to user configuration file
+AT_DELAY_START => doesn't patch from loading, wait for user calls to exposed APIs
+
+#####################################################################
+###  Configuration File                                           ###
+#####################################################################
+
+Example:
+
+bf.ini
+
+# comment line starts with #
+
+#####################################################################
+# debugging message
+#####################################################################
+
+# Output stream
+# default [stdout]
+output=stdout|stderr|path_to_file
+
+# Messages of selected level or higher will be sent to output
+# default [fatal]
+message_level=fatal|error|info|none|all
+
+# Patch operations on modules and their functions
+# default [no]
+patch_debug=no|yes
+
+#####################################################################
+# Function patch control
+#####################################################################
+
+# Modules to patch
+# Two special module names: 
+#   (1) [exec] means the executable name 
+#   (2) [all] means all user modules
+# default [all]
+modules=all|exec
+modules=libM8PrcCo2.so,libA.so
+
+# All malloc/free are within selected modules, no one cross boudary
+# default [no]
+self_contained=no|yes
+
+# if we don't find all modules in the core or process is not
+# self-contained, we need always patch dlopen in order to patch free
+# for all loaded DSOs
+# default [yes]
+patch_dlopen=yes|no
+
+# Ignore patched modules, unless we know other code may unpatch them
+# default [yes]
+incremental_patch=yes|no
+
+#####################################################################
+# Memory block allocator
+#####################################################################
+
+# Instrumentation modes (they are mutually exclusive).
+# (Experimental) Allocate memory from exclusive heap for selected modules
+# default [deadpage]
+mode=deadpage|padding|private_heap|record
+
+# Min/Max block size to track
+# default [0,ULONG_MAX]
+min_block_size=[n]
+max_block_size=[n]
+
+# Memory blocks are allocated to meet the alignment requirement.
+# soft padding always start after user space's last byte.
+# deadpage can only starts after user space if user size if multiple of alignment
+# default [sizeof(long)]
+alignment=8
+
+#######################
+# deadpage mode only. #
+#######################
+
+# It has to be either overrun or underrun, not both.
+# soft padding checks overrun only
+# default [no] which mean check for overrun.
+check_underrun=no|yes
+
+# If enabled, cache and protect up to max_cached_blocks released blocks
+# that are not larger than system page size 
+# default [yes]
+check_access_freed=yes|no
+
+# If check_access_freed is enabled, limit max cached blocks
+# default [1024]
+max_cached_blocks=2048
+
+#######################
+# padding mode only.  #
+#######################
+
+# Maximum bytes on deferred free block lists.
+# default [0] which disable deferring
+max_defer_free_bytes=0|1024000
+
+# If enabled, fill freed user space with special byte
+# default [no]
+flood_free=no|yes
+
+# If enabled, initialize new user space with special byte
+# default [no]
+fill_new=no|yes
+
+# If set positive number, every so many malloc/free, whole heap is checked
+# default [-1]
+check_frequency=10
+
+#####################################################################
+# Misc debugging convenience
+#####################################################################
+
+# When any condition is met, act accordingly
+# default no event
+event=malloc@0x123456789|free@@0x123456789|malloc_around@0x123456789|free_around@0x123456789
+
+# What to do when any condition is met
+# default [output]
+event_action=output|pause
+
+# Retrieve number of frames of back trace when malloc is called
+# default [0]
+back_trace_depth=0-pagesize/sizeof(pointer)
+
+# Retrieve back trace when memory block is freed.
+# This is mainly to catch double free bug.
+# default [no]
+back_trace_free=no|yes

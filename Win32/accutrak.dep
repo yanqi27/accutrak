@@ -1,0 +1,83 @@
+# Microsoft Developer Studio Generated Dependency File, included by BF.mak
+
+..\src\AccuTrak.cpp : \
+	"..\inc\AccuTrak.h"\
+	"..\src\FuncTypes.h"\
+	"..\src\PatchManager.h"\
+	"..\src\PatchSym.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+..\src\ConfigParser.cpp : \
+	"..\inc\AccuTrak.h"\
+	"..\src\FuncTypes.h"\
+	"..\src\MallocLogger.h"\
+	"..\src\PatchManager.h"\
+	"..\src\PatchSym.h"\
+	"..\src\ReplacementMalloc.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+..\src\MallocDeadPage.cpp : \
+	"..\src\backtrace.h"\
+	"..\src\FuncTypes.h"\
+	"..\src\PatchManager.h"\
+	"..\src\ReplacementMalloc.h"\
+	"..\src\ReplacementMallocImpl.h"\
+	"..\src\SysAlloc.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+..\src\MallocLogger.cpp : \
+	"..\inc\AccuTrak.h"\
+	"..\src\FuncTypes.h"\
+	"..\src\malloclogfuncs.inc"\
+	"..\src\MallocLogger.h"\
+	"..\src\PatchManager.h"\
+	"..\src\ReplacementMalloc.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+..\src\MallocPadding.cpp : \
+	"..\src\backtrace.h"\
+	"..\src\FuncTypes.h"\
+	"..\src\PatchManager.h"\
+	"..\src\ReplacementMalloc.h"\
+	"..\src\ReplacementMallocImpl.h"\
+	"..\src\SysAlloc.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+..\src\MallocPrivateHeap.cpp : \
+	"..\src\FuncTypes.h"\
+	"..\src\PatchManager.h"\
+	"..\src\ReplacementMalloc.h"\
+	"..\src\ReplacementMallocImpl.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+..\src\PatchManager.cpp : \
+	"..\src\FuncTypes.h"\
+	"..\src\PatchManager.h"\
+	"..\src\PatchSym.h"\
+	"..\src\ReplacementMalloc.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+..\src\PatchPE32.cpp : \
+	"..\src\FuncTypes.h"\
+	"..\src\PatchManager.h"\
+	"..\src\ReplacementMalloc.h"\
+	"PSAPI.H"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	"z:\3rdparty\dbghelp.h"\
+	
+
+..\src\SysAlloc.cpp : \
+	"..\src\FuncTypes.h"\
+	"..\src\PatchManager.h"\
+	"..\src\ReplacementMalloc.h"\
+	"..\src\ReplacementMallocImpl.h"\
+	"..\src\SysAlloc.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
