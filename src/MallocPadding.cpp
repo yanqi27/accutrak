@@ -358,6 +358,7 @@ void*  ReallocBlockWithPadding(void* ipUserSpace, size_t iNewSize)
 			{
 				::memset((char*)ipUserSpace, USER_FREE_BYTE, lOldSize-iNewSize);
 			}
+			SCRATCH_SIGNATURE(lpHeader);
 		}
 		else
 		{
