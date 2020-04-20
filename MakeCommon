@@ -51,6 +51,8 @@ TestObjs = TestPatch.o TestOverrun.o TestUnderrun.o TestPatchDSO.o \
 	TestRealloc.o TestPreLoad.o TestNew.o \
 	TestRecord.o TestSize.o TestAccessFree.o TestDoubleFree.o TestBenchmark.o
 
+.SECONDARY: $(TestObjs)
+
 ################################################################################
 # test object/executable rule
 ################################################################################
