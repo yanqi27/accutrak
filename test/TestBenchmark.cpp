@@ -47,6 +47,7 @@ static void *threadCycle(void *arg)
 		if (lpBlocks[index])
 			delete [] lpBlocks[index];
 		lpBlocks[index] = new char[gBlockSz];
+		allocCnt++;
 	}
 	// Don't bother to release the blocks in cache
 
