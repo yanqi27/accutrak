@@ -7,7 +7,8 @@ PATCHFORMAT = PatchElf64
 BACKTRACE   = BackTrace_Linux_x86_64
 #LINK_SHLIB  = -lsmartheap_smp64
 #LINK_MBLIB  = -lmb
-EXTRA_TEST  = TestPrivateHeap
+SYSLIBS     = -lpthread -ldl
+#EXTRA_TEST  = TestPrivateHeap
 LIBSUFFIX   = so
 
 ATOMICOBJ = Atomic_x86.o
@@ -20,9 +21,9 @@ DEFINES  = -D__64BIT__
 #OPTIMIZER = -O2
 COMP_OPT = $(OPTIMIZER) -g -c -w -m64 -fPIC $(DEFINES) -I$(INC) -I$(INC_PUBLIC)
 
-LINK_OPT = -g -shared -m64 -Wl,--no-undefined -lpthread -ldl
+LINK_OPT = -g -shared -m64 -Wl,--no-undefined
 
-EXEC_LDFLAGS = -g -m64 -Wl,--no-undefined -lpthread -Wl,-rpath=$(LIBPATH)
+EXEC_LDFLAGS = -g -m64 -Wl,--no-undefined -Wl,-rpath=$(LIBPATH)
 
 # temperary
 MSTR_VIEW = /home/myan/views/orion

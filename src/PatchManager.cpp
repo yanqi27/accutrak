@@ -437,6 +437,7 @@ bool PatchManager::PatchCatchAllFree()
 #ifdef _AIX
 				|| ::strstr(lpModuleName, "libc_r.a")
 #elif defined(linux)
+				|| ::strstr(lpModuleName, "\/lib64\/")
 				|| ::strstr(lpModuleName, "ld-linux-x86-64.so")
 #endif
 #endif
