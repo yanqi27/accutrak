@@ -23,7 +23,7 @@ COMP_OPT = $(OPTIMIZER) -g -c -w -m64 -fPIC $(DEFINES) -I$(INC) -I$(INC_PUBLIC)
 
 LINK_OPT = -g -shared -m64 -Wl,--no-undefined
 
-EXEC_LDFLAGS = -g -m64 -Wl,--no-undefined -Wl,-rpath=$(LIBPATH)
+EXEC_LDFLAGS = -g -m64 -Wl,--no-undefined
 
 # temperary
 MSTR_VIEW = /home/myan/views/orion

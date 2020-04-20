@@ -47,6 +47,10 @@ TESTSRC = ../test
 TestSuite: TestPatch TestOverrun TestUnderrun TestPatchDSO libfoo.$(LIBSUFFIX) TestRealloc TestPreLoad TestNew \
 	TestRecord TestSize TestAccessFree TestDoubleFree TestBenchmark $(EXTRA_TEST)
 
+TestObjs = TestPatch.o TestOverrun.o TestUnderrun.o TestPatchDSO.o \
+	TestRealloc.o TestPreLoad.o TestNew.o \
+	TestRecord.o TestSize.o TestAccessFree.o TestDoubleFree.o TestBenchmark.o
+
 ################################################################################
 # test object/executable rule
 ################################################################################
@@ -180,4 +184,4 @@ Test13: TestBenchmark
 		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
 		setenv LIBPATH ./:$(LIBPATH); \
 		setenv LD_PRELOAD $(LIBACCUTRAK); \
-		/bin/time ./TestBenchmark"
+		/usr/bin/time -p ./TestBenchmark"

@@ -25,10 +25,10 @@ typedef pthread_t	threadID_t;
 int gDummy = gAccuTrakDummy;
 #endif
 
-const int gTotalThread = 4;
+const int gTotalThread = 8;
 const size_t gBlockSz = 512;
 const size_t gCachedBlocks = 4096;
-const size_t gTotalAllocs = 1024 * 8;
+const size_t gTotalAllocs = 1024 * 64;
 
 // Thread startup func
 #ifdef WIN32
