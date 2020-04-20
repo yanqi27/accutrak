@@ -42,7 +42,7 @@ HeapImage.o: $(SRC)/HeapImage.cpp
 ################################################################################
 # tests suite
 ################################################################################
-TESTSRC = ../test
+TESTSRC = ../test_src
 
 TestSuite: TestPatch TestOverrun TestUnderrun TestPatchDSO libfoo.$(LIBSUFFIX) TestRealloc TestPreLoad TestNew \
 	TestRecord TestSize TestAccessFree TestDoubleFree TestBenchmark $(EXTRA_TEST)
