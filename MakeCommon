@@ -92,6 +92,7 @@ Test1: TestPatch
 	echo "Test1 symbol patching"
 	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatch.ini; \
 		setenv LD_LIBRARY_PATH $(LIBPATH); \
+		setenv LD_PRELOAD $(LIBACCUTRAK); \
 		./TestPatch"
 
 Test2: TestOverrun
@@ -99,6 +100,7 @@ Test2: TestOverrun
 	echo "Test2 over run checking, should seg fault"
 	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatch.ini; \
 		setenv LD_LIBRARY_PATH $(LIBPATH); \
+		setenv LD_PRELOAD $(LIBACCUTRAK); \
 		./TestOverrun"
 
 Test3: TestUnderrun
@@ -106,6 +108,7 @@ Test3: TestUnderrun
 	echo "Test3 under run checking, should seg fault"
 	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestUnderrun.ini; \
 		setenv LD_LIBRARY_PATH $(LIBPATH); \
+		setenv LD_PRELOAD $(LIBACCUTRAK); \
 		./TestUnderrun"
 
 Test4: TestPatchDSO libfoo.${LIBSUFFIX}
@@ -114,6 +117,7 @@ Test4: TestPatchDSO libfoo.${LIBSUFFIX}
 	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatchDSO.ini; \
 		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
 		setenv LIBPATH ./:$(LIBPATH); 
+		setenv LD_PRELOAD $(LIBACCUTRAK); \
 		./TestPatchDSO"
 
 Test5: TestRealloc
@@ -121,6 +125,7 @@ Test5: TestRealloc
 	echo "Test5 realloc"
 	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatch.ini; \
 		setenv LD_LIBRARY_PATH $(LIBPATH); \
+		setenv LD_PRELOAD $(LIBACCUTRAK); \
 		./TestRealloc"
 
 Test6: TestPreLoad
@@ -136,6 +141,7 @@ Test7: TestNew
 	echo "Test7 patch operator new, over run checking, should seg fault"
 	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatch.ini; \
 		setenv LD_LIBRARY_PATH $(LIBPATH); \
+		setenv LD_PRELOAD $(LIBACCUTRAK); \
 		./TestNew"
 
 Test8: TestPrivateHeap
@@ -143,6 +149,7 @@ Test8: TestPrivateHeap
 	echo "Test8 Allocate memory from private heap in libfoo.so"
 	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPrivateHeap.ini; \
 		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
+		setenv LD_PRELOAD $(LIBACCUTRAK); \
 		./TestPrivateHeap"
 
 Test9: TestRecord libfoo.${LIBSUFFIX}
@@ -169,6 +176,7 @@ Test11: TestAccessFree
 	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestAccessFree.ini; \
 		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
 		setenv LIBPATH ./:$(LIBPATH); \
+		setenv LD_PRELOAD $(LIBACCUTRAK); \
 		./TestAccessFree"
 
 Test12: TestDoubleFree
@@ -177,6 +185,7 @@ Test12: TestDoubleFree
 	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestDoubleFree.ini; \
 		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
 		setenv LIBPATH ./:$(LIBPATH); \
+		setenv LD_PRELOAD $(LIBACCUTRAK); \
 		./TestDoubleFree"
 
 Test13: TestBenchmark
