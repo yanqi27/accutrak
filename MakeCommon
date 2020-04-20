@@ -90,28 +90,28 @@ run: Test1 Test2 Test3 Test4 Test5 Test6 Test7 Test8 Test9
 Test1: TestPatch
 	echo "-------------------------------------------"
 	echo "Test1 symbol patching"
-	/bin/csh -c "setenv AT_CONFIG_FILE ../test/TestPatch.ini; \
+	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatch.ini; \
 		setenv LD_LIBRARY_PATH $(LIBPATH); \
 		./TestPatch"
 
 Test2: TestOverrun
 	echo "-------------------------------------------"
 	echo "Test2 over run checking, should seg fault"
-	/bin/csh -c "setenv AT_CONFIG_FILE ../test/TestPatch.ini; \
+	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatch.ini; \
 		setenv LD_LIBRARY_PATH $(LIBPATH); \
 		./TestOverrun"
 
 Test3: TestUnderrun
 	echo "-------------------------------------------"
 	echo "Test3 under run checking, should seg fault"
-	/bin/csh -c "setenv AT_CONFIG_FILE ../test/TestUnderrun.ini; \
+	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestUnderrun.ini; \
 		setenv LD_LIBRARY_PATH $(LIBPATH); \
 		./TestUnderrun"
 
 Test4: TestPatchDSO libfoo.${LIBSUFFIX}
 	echo "-------------------------------------------"
 	echo "Test4 DSO symbol patching"
-	/bin/csh -c "setenv AT_CONFIG_FILE ../test/TestPatchDSO.ini; \
+	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatchDSO.ini; \
 		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
 		setenv LIBPATH ./:$(LIBPATH); 
 		./TestPatchDSO"
@@ -119,14 +119,14 @@ Test4: TestPatchDSO libfoo.${LIBSUFFIX}
 Test5: TestRealloc
 	echo "-------------------------------------------"
 	echo "Test5 realloc"
-	/bin/csh -c "setenv AT_CONFIG_FILE ../test/TestPatch.ini; \
+	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatch.ini; \
 		setenv LD_LIBRARY_PATH $(LIBPATH); \
 		./TestRealloc"
 
 Test6: TestPreLoad
 	echo "-------------------------------------------"
 	echo "Test6 preload AccuTrak (only if OS support PRELOAD)"
-	/bin/csh -c "setenv AT_CONFIG_FILE ../test/TestPatchDSO.ini; \
+	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatchDSO.ini; \
 		setenv LD_PRELOAD $(LIBACCUTRAK); \
 		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
 		./TestPreLoad"
@@ -134,21 +134,21 @@ Test6: TestPreLoad
 Test7: TestNew
 	echo "-------------------------------------------"
 	echo "Test7 patch operator new, over run checking, should seg fault"
-	/bin/csh -c "setenv AT_CONFIG_FILE ../test/TestPatch.ini; \
+	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatch.ini; \
 		setenv LD_LIBRARY_PATH $(LIBPATH); \
 		./TestNew"
 
 Test8: TestPrivateHeap
 	echo "-------------------------------------------"
 	echo "Test8 Allocate memory from private heap in libfoo.so"
-	/bin/csh -c "setenv AT_CONFIG_FILE ../test/TestPrivateHeap.ini; \
+	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPrivateHeap.ini; \
 		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
 		./TestPrivateHeap"
 
 Test9: TestRecord libfoo.${LIBSUFFIX}
 	echo "-------------------------------------------"
 	echo "Test9 Record all"
-	/bin/csh -c "setenv AT_CONFIG_FILE ../test/TestRecord.ini; \
+	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestRecord.ini; \
 		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
 		setenv LIBPATH ./:$(LIBPATH); \
 		setenv LD_PRELOAD $(LIBACCUTRAK); \
@@ -157,7 +157,7 @@ Test9: TestRecord libfoo.${LIBSUFFIX}
 Test10: TestSize
 	echo "-------------------------------------------"
 	echo "Test10 Track blocks within size range"
-	/bin/csh -c "setenv AT_CONFIG_FILE ../test/TestSize.ini; \
+	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestSize.ini; \
 		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
 		setenv LIBPATH ./:$(LIBPATH); \
 		setenv LD_PRELOAD $(LIBACCUTRAK); \
@@ -166,7 +166,7 @@ Test10: TestSize
 Test11: TestAccessFree
 	echo "-------------------------------------------"
 	echo "Test11 Touch freed block and we should seg fault"
-	/bin/csh -c "setenv AT_CONFIG_FILE ../test/TestAccessFree.ini; \
+	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestAccessFree.ini; \
 		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
 		setenv LIBPATH ./:$(LIBPATH); \
 		./TestAccessFree"
@@ -174,7 +174,7 @@ Test11: TestAccessFree
 Test12: TestDoubleFree
 	echo "-------------------------------------------"
 	echo "Test12 Free a block twice and we should be stopped by AccuTrak"
-	/bin/csh -c "setenv AT_CONFIG_FILE ../test/TestDoubleFree.ini; \
+	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestDoubleFree.ini; \
 		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
 		setenv LIBPATH ./:$(LIBPATH); \
 		./TestDoubleFree"
@@ -182,7 +182,7 @@ Test12: TestDoubleFree
 Test13: TestBenchmark
 	echo "-------------------------------------------"
 	echo "Test13 Allocate memory in multiple threads in deadpage mode"
-	/bin/csh -c "setenv AT_CONFIG_FILE ../test/TestBenchmark.ini; \
+	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestBenchmark.ini; \
 		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
 		setenv LIBPATH ./:$(LIBPATH); \
 		setenv LD_PRELOAD $(LIBACCUTRAK); \
