@@ -90,109 +90,109 @@ run: Test1 Test2 Test3 Test4 Test5 Test6 Test7 Test8 Test9
 Test1: TestPatch
 	echo "-------------------------------------------"
 	echo "Test1 symbol patching"
-	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatch.ini; \
-		setenv LD_LIBRARY_PATH $(LIBPATH); \
-		setenv LD_PRELOAD $(LIBACCUTRAK); \
+	/bin/bash -c "export AT_CONFIG_FILE=$(TESTSRC)/TestPatch.ini; \
+		export LD_LIBRARY_PATH=$(LIBPATH); \
+		export LD_PRELOAD=$(LIBACCUTRAK); \
 		./TestPatch"
 
 Test2: TestOverrun
 	echo "-------------------------------------------"
 	echo "Test2 over run checking, should seg fault"
-	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatch.ini; \
-		setenv LD_LIBRARY_PATH $(LIBPATH); \
-		setenv LD_PRELOAD $(LIBACCUTRAK); \
+	/bin/bash -c "export AT_CONFIG_FILE=$(TESTSRC)/TestPatch.ini; \
+		export LD_LIBRARY_PATH=$(LIBPATH); \
+		export LD_PRELOAD=$(LIBACCUTRAK); \
 		./TestOverrun"
 
 Test3: TestUnderrun
 	echo "-------------------------------------------"
 	echo "Test3 under run checking, should seg fault"
-	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestUnderrun.ini; \
-		setenv LD_LIBRARY_PATH $(LIBPATH); \
-		setenv LD_PRELOAD $(LIBACCUTRAK); \
+	/bin/bash -c "export AT_CONFIG_FILE=$(TESTSRC)/TestUnderrun.ini; \
+		export LD_LIBRARY_PATH=$(LIBPATH); \
+		export LD_PRELOAD=$(LIBACCUTRAK); \
 		./TestUnderrun"
 
 Test4: TestPatchDSO libfoo.${LIBSUFFIX}
 	echo "-------------------------------------------"
 	echo "Test4 DSO symbol patching"
-	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatchDSO.ini; \
-		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
-		setenv LIBPATH ./:$(LIBPATH); 
-		setenv LD_PRELOAD $(LIBACCUTRAK); \
+	/bin/bash -c "export AT_CONFIG_FILE=$(TESTSRC)/TestPatchDSO.ini; \
+		export LD_LIBRARY_PATH=./:$(LIBPATH); \
+		export LIBPATH=./:$(LIBPATH); \
+		export LD_PRELOAD=$(LIBACCUTRAK); \
 		./TestPatchDSO"
 
 Test5: TestRealloc
 	echo "-------------------------------------------"
 	echo "Test5 realloc"
-	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatch.ini; \
-		setenv LD_LIBRARY_PATH $(LIBPATH); \
-		setenv LD_PRELOAD $(LIBACCUTRAK); \
+	/bin/bash -c "export AT_CONFIG_FILE=$(TESTSRC)/TestPatch.ini; \
+		export LD_LIBRARY_PATH=$(LIBPATH); \
+		export LD_PRELOAD=$(LIBACCUTRAK); \
 		./TestRealloc"
 
 Test6: TestPreLoad
 	echo "-------------------------------------------"
 	echo "Test6 preload AccuTrak (only if OS support PRELOAD)"
-	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatchDSO.ini; \
-		setenv LD_PRELOAD $(LIBACCUTRAK); \
-		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
+	/bin/bash -c "export AT_CONFIG_FILE=$(TESTSRC)/TestPatchDSO.ini; \
+		export LD_PRELOAD=$(LIBACCUTRAK); \
+		export LD_LIBRARY_PATH=./:$(LIBPATH); \
 		./TestPreLoad"
 
 Test7: TestNew
 	echo "-------------------------------------------"
 	echo "Test7 patch operator new, over run checking, should seg fault"
-	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPatch.ini; \
-		setenv LD_LIBRARY_PATH $(LIBPATH); \
-		setenv LD_PRELOAD $(LIBACCUTRAK); \
+	/bin/bash -c "export AT_CONFIG_FILE=$(TESTSRC)/TestPatch.ini; \
+		export LD_LIBRARY_PATH=$(LIBPATH); \
+		export LD_PRELOAD=$(LIBACCUTRAK); \
 		./TestNew"
 
 Test8: TestPrivateHeap
 	echo "-------------------------------------------"
 	echo "Test8 Allocate memory from private heap in libfoo.so"
-	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestPrivateHeap.ini; \
-		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
-		setenv LD_PRELOAD $(LIBACCUTRAK); \
+	/bin/bash -c "export AT_CONFIG_FILE=$(TESTSRC)/TestPrivateHeap.ini; \
+		export LD_LIBRARY_PATH=./:$(LIBPATH); \
+		export LD_PRELOAD=$(LIBACCUTRAK); \
 		./TestPrivateHeap"
 
 Test9: TestRecord libfoo.${LIBSUFFIX}
 	echo "-------------------------------------------"
 	echo "Test9 Record all"
-	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestRecord.ini; \
-		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
-		setenv LIBPATH ./:$(LIBPATH); \
-		setenv LD_PRELOAD $(LIBACCUTRAK); \
+	/bin/bash -c "export AT_CONFIG_FILE=$(TESTSRC)/TestRecord.ini; \
+		export LD_LIBRARY_PATH=./:$(LIBPATH); \
+		export LIBPATH=./:$(LIBPATH); \
+		export LD_PRELOAD=$(LIBACCUTRAK); \
 		./TestRecord"
 
 Test10: TestSize
 	echo "-------------------------------------------"
 	echo "Test10 Track blocks within size range"
-	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestSize.ini; \
-		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
-		setenv LIBPATH ./:$(LIBPATH); \
-		setenv LD_PRELOAD $(LIBACCUTRAK); \
+	/bin/bash -c "export AT_CONFIG_FILE=$(TESTSRC)/TestSize.ini; \
+		export LD_LIBRARY_PATH=./:$(LIBPATH); \
+		export LIBPATH=./:$(LIBPATH); \
+		export LD_PRELOAD=$(LIBACCUTRAK); \
 		./TestSize"
 
 Test11: TestAccessFree
 	echo "-------------------------------------------"
 	echo "Test11 Touch freed block and we should seg fault"
-	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestAccessFree.ini; \
-		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
-		setenv LIBPATH ./:$(LIBPATH); \
-		setenv LD_PRELOAD $(LIBACCUTRAK); \
+	/bin/bash -c "export AT_CONFIG_FILE=$(TESTSRC)/TestAccessFree.ini; \
+		export LD_LIBRARY_PATH=./:$(LIBPATH); \
+		export LIBPATH=./:$(LIBPATH); \
+		export LD_PRELOAD=$(LIBACCUTRAK); \
 		./TestAccessFree"
 
 Test12: TestDoubleFree
 	echo "-------------------------------------------"
 	echo "Test12 Free a block twice and we should be stopped by AccuTrak"
-	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestDoubleFree.ini; \
-		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
-		setenv LIBPATH ./:$(LIBPATH); \
-		setenv LD_PRELOAD $(LIBACCUTRAK); \
+	/bin/bash -c "export AT_CONFIG_FILE=$(TESTSRC)/TestDoubleFree.ini; \
+		export LD_LIBRARY_PATH=./:$(LIBPATH); \
+		export LIBPATH=./:$(LIBPATH); \
+		export LD_PRELOAD=$(LIBACCUTRAK); \
 		./TestDoubleFree"
 
 Test13: TestBenchmark
 	echo "-------------------------------------------"
 	echo "Test13 Allocate memory in multiple threads in deadpage mode"
-	/bin/csh -c "setenv AT_CONFIG_FILE $(TESTSRC)/TestBenchmark.ini; \
-		setenv LD_LIBRARY_PATH ./:$(LIBPATH); \
-		setenv LIBPATH ./:$(LIBPATH); \
-		setenv LD_PRELOAD $(LIBACCUTRAK); \
+	/bin/bash -c "export AT_CONFIG_FILE=$(TESTSRC)/TestBenchmark.ini; \
+		export LD_LIBRARY_PATH=./:$(LIBPATH); \
+		export LIBPATH=./:$(LIBPATH); \
+		export LD_PRELOAD=$(LIBACCUTRAK); \
 		/usr/bin/time -p ./TestBenchmark"
