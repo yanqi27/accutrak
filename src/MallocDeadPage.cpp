@@ -462,6 +462,23 @@ void*  MallocBlockWithDeadPage(size_t iSize)
 	{
 		lRealSize += lPageSize - Remainder;
 	}
+	// For overrun check, if the request size is close to page size or its multiple,
+	//   adjust request size so that more space is allocated for in-bound heap data;
+	//   the downside is that padding bytes are left at the bottome of user space
+	// The underrun check can't adjust because it is necessary that inbound heap data
+	//   are laid out in the same page as the user starting address
+	if(!lbCheckUnderrun) {
+		Remainder = lRealSize - lPageSize - iSize;
+		if (Remainder < sizeof(BlockWithDeadPageHeader)) {
+			lRealSize += lPageSize;
+			// For overrun check, ensure the alignment
+			iSize += Remainder;
+			if(lAlignment > 0)
+				iSize += lAlignment;
+			else
+				iSize += sizeof(size_t);
+		}
+	}
 
 	// At this point, lRealSize must be multiple of system page size
 	// The returned block should have dead page set properly alreday.
@@ -487,6 +504,13 @@ void*  MallocBlockWithDeadPage(size_t iSize)
 			// which is also on the immediate page boundary of user space
 			lpHeader = (BlockWithDeadPageHeader*)lpRawBlock;
 			lbUseEmbeddedHeader = true;
+			// TODO
+			// If extra space is allocated for user, pad them with special bytes
+
+		} else {
+			// We should always have enough space for inbound heap data
+			fprintf(stderr, "Internal error: no space for inbound Deadpage heap data\n");
+			abort();
 		}
 	}
 	// Otherwise check underrun
