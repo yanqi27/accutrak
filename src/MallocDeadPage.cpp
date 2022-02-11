@@ -443,6 +443,7 @@ void*  MallocBlockWithDeadPage(size_t iSize)
 	bool   lbCheckUnderrun = gPatchMgr->CheckUnderrun();
 
 	size_t Remainder;
+	size_t lRequestSize = iSize;
 	// Adjust the requested size
 	//
 	// Alignment, for overrun check only
@@ -544,7 +545,7 @@ void*  MallocBlockWithDeadPage(size_t iSize)
 	// Now, the header pointer should point to either in-page or out-page header structure
 	lpHeader->mRawBlockAddr = lpRawBlock;
 	lpHeader->p.mUserAddr = lpUserAddr;
-	lpHeader->mUserSize = iSize;
+	lpHeader->mUserSize = lRequestSize;
 	SET_SIGNATURE(lpHeader);
 
 	OUTPUT_MSG2(AT_ALL, "MallocBlockWithDeadPage allocates %d bytes at 0x%lx successfully\n", iSize, lpUserAddr);
